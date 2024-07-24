@@ -15,12 +15,12 @@ class ProductAndRevenue
 {
     use Api;
 
-	public function __construct(int $accountId, string $authToken)
-	{
+    public function __construct(int $accountId, string $authToken)
+    {
         $this->auth_token = $authToken;
         $this->accountId = $accountId;
         $this->resource = 'orders';
-	}
+    }
 
     /**
      * Gets a the specified order.
@@ -28,10 +28,10 @@ class ProductAndRevenue
      * @param int $id
      * @return OperationResult
      */
-	public function getOrder(int $id) : OperationResult
-	{
-        return $this->_get("find", ["where[id]" => $id]);
-	}
+    public function getOrder(int $id) : OperationResult
+    {
+        return $this->_get('find', ['where[id]' => $id]);
+    }
 
     /**
      * Gets a the specified order.
@@ -65,7 +65,7 @@ class ProductAndRevenue
      * @param string|null $couponCode
      * @return OperationResult
      */
-	public function createOrder(bool $requireUnique, string $contactEmail, string $contactFirstName, string $contactLastName,
+    public function createOrder(bool $requireUnique, string $contactEmail, string $contactFirstName, string $contactLastName,
                                 string $orderDateTime, string $orderStatus, string $originalOrderId, array $orderItems,
                                 array $customFields = null, array $addTags = null, array $removeTags = null,
                                 string $uid = null, string $listIds = null, string $grandTotal = null,
@@ -75,7 +75,7 @@ class ProductAndRevenue
             return new GetResult(null, "The provided 'contactEmail' is not a well-formed email address.");
         }
         if (empty($orderItems)) {
-            return new GetResult(null, "No orderItems were provided. Each order must contain at least one orderItem.");
+            return new GetResult(null, 'No orderItems were provided. Each order must contain at least one orderItem.');
         }
         foreach ($orderItems as $orderItem) {
             if (!($orderItem instanceof OrderItemInput)) {
@@ -83,17 +83,17 @@ class ProductAndRevenue
             }
         }
 
-        $order = (object)array(
-            "contact" => array("email" => $contactEmail, "first_name" => $contactFirstName, "last_name" => $contactLastName),
-            "order_date" => $orderDateTime,
-            "order_status" => $orderStatus,
-            "original_order_id" => $originalOrderId,
-            "order_items" => $orderItems,
-            "uid" => $uid,
-            "campaign_id" => $campaignId,
-            "coupon_code" => $couponCode,
-            "grand_total" => $grandTotal
-        );
+        $order = (object)[
+            'contact' => ['email' => $contactEmail, 'first_name' => $contactFirstName, 'last_name' => $contactLastName],
+            'order_date' => $orderDateTime,
+            'order_status' => $orderStatus,
+            'original_order_id' => $originalOrderId,
+            'order_items' => $orderItems,
+            'uid' => $uid,
+            'campaign_id' => $campaignId,
+            'coupon_code' => $couponCode,
+            'grand_total' => $grandTotal
+        ];
         if ($listIds) {
             $order->list_ids = $listIds;
         }
@@ -125,9 +125,9 @@ class ProductAndRevenue
             }
             $order->remove_tags = $removeTags;
         }
-        $object = (object)array("order" => $order);
-        $params = ($requireUnique ? array("unique"=>"true") : array());
-        return $this->_post("", $params, $object);
+        $object = (object)['order' => $order];
+        $params = ($requireUnique ? ['unique' => 'true'] : []);
+        return $this->_post('', $params, $object);
     }
 
     /**
@@ -147,7 +147,7 @@ class ProductAndRevenue
     ) : OperationResult
     {
         if (empty($orderItems)) {
-            return new GetResult(null, "No orderItems were provided. Each order must contain at least one orderItem.");
+            return new GetResult(null, 'No orderItems were provided. Each order must contain at least one orderItem.');
         }
         foreach ($orderItems as $orderItem) {
             if (!($orderItem instanceof OrderItemInput)) {
@@ -155,14 +155,14 @@ class ProductAndRevenue
             }
         }
 
-        $order = (object)array(
-            "order_date" => $orderDateTime,
-            "order_status" => $orderStatus,
-            "campaign_id" => $campaignId,
-            "coupon_code" => $couponCode,
-            "order_items" => $orderItems
-        );
-        $object = (object)array("order" => $order);
+        $order = (object)[
+            'order_date' => $orderDateTime,
+            'order_status' => $orderStatus,
+            'campaign_id' => $campaignId,
+            'coupon_code' => $couponCode,
+            'order_items' => $orderItems
+        ];
+        $object = (object)['order' => $order];
         return $this->_put($originalOrderId, [], $object);
     }
 
@@ -183,7 +183,7 @@ class ProductAndRevenue
     ) : OperationResult
     {
         if (empty($orderItems)) {
-            return new GetResult(null, "No orderItems were provided. Each order must contain at least one orderItem.");
+            return new GetResult(null, 'No orderItems were provided. Each order must contain at least one orderItem.');
         }
         foreach ($orderItems as $orderItem) {
             if (!($orderItem instanceof OrderItemInput)) {
@@ -191,15 +191,15 @@ class ProductAndRevenue
             }
         }
 
-        $order = (object)array(
-            "order_date" => $orderDateTime,
-            "order_status" => $orderStatus,
-            "campaign_id" => $campaignId,
-            "coupon_code" => $couponCode,
-            "order_items" => $orderItems
-        );
-        $object = (object)array("order" => $order);
-        return $this->_put("find", array("where[id]" => $orderId), $object);
+        $order = (object)[
+            'order_date' => $orderDateTime,
+            'order_status' => $orderStatus,
+            'campaign_id' => $campaignId,
+            'coupon_code' => $couponCode,
+            'order_items' => $orderItems
+        ];
+        $object = (object)['order' => $order];
+        return $this->_put('find', ['where[id]' => $orderId], $object);
     }
 
     /**
@@ -208,7 +208,7 @@ class ProductAndRevenue
      * @param string $originalOrderId matches the original_order_id field of the order
      * @return OperationResult
      */
-	public function deleteForOriginalOrderId(string $originalOrderId) : OperationResult
+    public function deleteForOriginalOrderId(string $originalOrderId) : OperationResult
     {
         return $this->_delete($originalOrderId);
     }
@@ -221,7 +221,7 @@ class ProductAndRevenue
      */
     public function deleteForOrderId(int $id) : OperationResult
     {
-        return $this->_delete("find", array("where[id]"=>$id));
+        return $this->_delete('find', ['where[id]' =>$id]);
     }
 
     /**
@@ -235,17 +235,17 @@ class ProductAndRevenue
     public function deleteProductsForOriginalOrderId(string $originalOrderId, array $productIds) : OperationResult
     {
         if (empty($productIds)) {
-            return new GetResult(null, "No productIds were provided.");
+            return new GetResult(null, 'No productIds were provided.');
         }
         foreach ($productIds as $productId) {
             if (!is_int($productId)) {
-                if (!is_string($productId) || strpos($productId, ",") !== false) {
-                    return new GetResult(null, "At least one productId is invalid");
+                if (!is_string($productId) || strpos($productId, ',') !== false) {
+                    return new GetResult(null, 'At least one productId is invalid');
                 }
             }
         }
 
-        return $this->_delete($originalOrderId, array("product_ids"=>implode(",", $productIds)));
+        return $this->_delete($originalOrderId, ['product_ids' =>implode(',', $productIds)]);
     }
 
     /**
@@ -259,19 +259,19 @@ class ProductAndRevenue
     public function deleteProductsForOrderId(int $id, array $productIds) : OperationResult
     {
         if (empty($productIds)) {
-            return new GetResult(null, "No productIds were provided.");
+            return new GetResult(null, 'No productIds were provided.');
         }
         foreach ($productIds as $productId) {
             if (!is_int($productId)) {
-                if (!is_string($productId) || strpos($productId, ",") !== false) {
-                    return new GetResult(null, "At least one productId is invalid");
+                if (!is_string($productId) || strpos($productId, ',') !== false) {
+                    return new GetResult(null, 'At least one productId is invalid');
                 }
             }
         }
 
-        return $this->_delete("find", array(
-            "product_ids" => implode(",", $productIds),
-            "where[id]" => $id
-        ));
+        return $this->_delete('find', [
+            'product_ids' => implode(',', $productIds),
+            'where[id]' => $id
+        ]);
     }
 }

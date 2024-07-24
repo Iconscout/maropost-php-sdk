@@ -3,17 +3,17 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use \Maropost\Api\Abstractions\OperationResult;
-use \Maropost\Api\Journeys;
+use Maropost\Api\Abstractions\OperationResult;
+use Maropost\Api\Journeys;
 
 final class JourneysTests extends TestCase
 {
     // TODO: Whenever you want to run these tests, set appropriate auth_token, journey, contact and uid
-    const ACCOUNT_ID = 1000;
-    const AUTH_TOKEN = "";
-    const JOURNEY_ID = 0;
-    const CONTACT_ID = 0;
-    const UID = "";
+    public const ACCOUNT_ID = 1000;
+    public const AUTH_TOKEN = '';
+    public const JOURNEY_ID = 0;
+    public const CONTACT_ID = 0;
+    public const UID = '';
 
     public function testGet()
     {
@@ -27,7 +27,7 @@ final class JourneysTests extends TestCase
         $data = $results->getData();
         $this->assertTrue(is_array($data));
         $this->assertNotEmpty($data);
-        $this->assertObjectHasAttribute("id", $data[0]);
+        $this->assertObjectHasAttribute('id', $data[0]);
         $id = $data[0]->id;
 
         // page 2
@@ -39,10 +39,10 @@ final class JourneysTests extends TestCase
         $data = $results->getData();
         $this->assertTrue(is_array($data));
         $this->assertNotEmpty($data);
-        $this->assertObjectHasAttribute("id", $data[0]);
+        $this->assertObjectHasAttribute('id', $data[0]);
         $id2 = $data[0]->id;
 
-        $this->assertNotEquals($id, $id2, "first id on page 2 (". $id2 . ") should not equal first id on page 1 (". $id . ").");
+        $this->assertNotEquals($id, $id2, 'first id on page 2 (' . $id2 . ') should not equal first id on page 1 (' . $id . ').');
     }
 
     public function testGetCampaigns()

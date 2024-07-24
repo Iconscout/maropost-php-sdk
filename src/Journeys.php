@@ -14,12 +14,12 @@ class Journeys
 {
     use Api;
 
-	public function __construct(int $accountId, string $authToken)
-	{
+    public function __construct(int $accountId, string $authToken)
+    {
         $this->auth_token = $authToken;
         $this->accountId = $accountId;
         $this->resource = 'journeys';
-	}
+    }
 
     /**
      * Gets the list of journeys.
@@ -27,14 +27,14 @@ class Journeys
      * @param int $page page #. (>= 1)
      * @return GetResult
      */
-	public function get(int $page) : OperationResult
-	{
+    public function get(int $page) : OperationResult
+    {
         try {
             return $this->_get('', ['page' => $page]);
         } catch (\Exception $e) {
             die('exception ');
         }
-	}
+    }
 
     /**
      * Gets the list of all campaigns for the specified journey.
@@ -43,14 +43,14 @@ class Journeys
      * @param int $page page #. (>= 1)
      * @return GetResult
      */
-	public function getCampaigns(int $journeyId, int $page) : OperationResult
-	{
+    public function getCampaigns(int $journeyId, int $page) : OperationResult
+    {
         try {
-            return $this->_get($journeyId."/journey_campaigns", ['page' => $page]);
+            return $this->_get($journeyId. '/journey_campaigns', ['page' => $page]);
         } catch (\Exception $e) {
             die('exception ');
         }
-	}
+    }
 
     /**
      * Gets the list of all contacts for the specified journey.
@@ -59,14 +59,14 @@ class Journeys
      * @param int $page page #. (>= 1)
      * @return GetResult
      */
-	public function getContacts(int $journeyId, int $page) : OperationResult
-	{
+    public function getContacts(int $journeyId, int $page) : OperationResult
+    {
         try {
-            return $this->_get($journeyId."/journey_contacts", ['page' => $page]);
+            return $this->_get($journeyId. '/journey_contacts', ['page' => $page]);
         } catch (\Exception $e) {
             die('exception ');
         }
-	}
+    }
 
     /**
      * Stops all journeys, filtered for the matching parameters.
@@ -77,27 +77,26 @@ class Journeys
      * @param int $page page #. (>= 1)
      * @return OperationResult
      */
-	public function stopAll(
-	    int $contactId,
+    public function stopAll(
+        int $contactId,
         string $recipientEmail,
         string $uid,
         int $page
     ) : OperationResult
-	{
-	    $params = [];
-	    if ($contactId > 0) {
-	        $params['contact_id'] = $contactId;
+    {
+        $params = [];
+        if ($contactId > 0) {
+            $params['contact_id'] = $contactId;
         }
-	    if ($recipientEmail != null) {
-	        $params['email'] = $recipientEmail;
+        if ($recipientEmail != null) {
+            $params['email'] = $recipientEmail;
         }
-	    if ($uid != null) {
-	        $params['uid'] = $uid;
+        if ($uid != null) {
+            $params['uid'] = $uid;
         }
-	    $params['page'] = $page;
-		$result = $this->_put("stop_all_journeys", $params);
-		return $result;
-	}
+        $params['page'] = $page;
+        return $this->_put('stop_all_journeys', $params);
+    }
 
     /**
      * Pause the specified journey for the specified contact.
@@ -106,11 +105,10 @@ class Journeys
      * @param int $contactId
      * @return OperationResult
      */
-	public function pauseJourneyForContact(int $journeyId, int $contactId) : OperationResult
-	{
-        $result = $this->_put($journeyId."/stop/".$contactId, []);
-        return $result;
-	}
+    public function pauseJourneyForContact(int $journeyId, int $contactId) : OperationResult
+    {
+        return $this->_put($journeyId. '/stop/' .$contactId, []);
+    }
 
     /**
      * Pause the specified journey for the contact having the specified UID.
@@ -119,12 +117,11 @@ class Journeys
      * @param string $uid
      * @return OperationResult
      */
-	public function pauseJourneyForUid(int $journeyId, string $uid) : OperationResult
-	{
-	    $params["uid"] = $uid;
-        $result = $this->_put($journeyId."/stop/uid", $params);
-        return $result;
-	}
+    public function pauseJourneyForUid(int $journeyId, string $uid) : OperationResult
+    {
+        $params['uid'] = $uid;
+        return $this->_put($journeyId. '/stop/uid', $params);
+    }
 
     /**
      * Reset the specified journey for the specified active/paused contact. Resetting a contact to the beginning of the
@@ -134,11 +131,10 @@ class Journeys
      * @param int $contactId
      * @return OperationResult
      */
-	public function resetJourneyForContact(int $journeyId, int $contactId) : OperationResult
-	{
-        $result = $this->_put($journeyId."/reset/".$contactId, []);
-		return $result;
-	}
+    public function resetJourneyForContact(int $journeyId, int $contactId) : OperationResult
+    {
+        return $this->_put($journeyId. '/reset/' .$contactId, []);
+    }
 
     /**
      * Reset the specified journey for the active/paused contact having the specified UID. Resetting a contact to the
@@ -148,12 +144,11 @@ class Journeys
      * @param string $uid
      * @return OperationResult
      */
-	public function resetJourneyForUid(int $journeyId, string $uid) : OperationResult
-	{
-	    $params["uid"] = $uid;
-        $result = $this->_put($journeyId."/reset/uid", $params);
-		return $result;
-	}
+    public function resetJourneyForUid(int $journeyId, string $uid) : OperationResult
+    {
+        $params['uid'] = $uid;
+        return $this->_put($journeyId. '/reset/uid', $params);
+    }
 
     /**
      * Restarts a journey for a paused contact. Adds a new contact in journey. Retriggers the journey for a contact
@@ -163,11 +158,10 @@ class Journeys
      * @param int $contactId
      * @return OperationResult
      */
-	public function startJourneyForContact(int $journeyId, int $contactId) : OperationResult
-	{
-        $result = $this->_put($journeyId."/start/".$contactId, []);
-        return $result;
-	}
+    public function startJourneyForContact(int $journeyId, int $contactId) : OperationResult
+    {
+        return $this->_put($journeyId. '/start/' .$contactId, []);
+    }
 
     /**
      * Restarts a journey for a paused contact having the specified UID. Adds a new contact in journey. Retriggers the
@@ -178,10 +172,9 @@ class Journeys
      * @param string $uid
      * @return OperationResult
      */
-	public function startJourneyForUid(int $journeyId, string $uid) : OperationResult
-	{
-        $params["uid"] = $uid;
-        $result = $this->_put($journeyId."/start/uid", $params);
-        return $result;
-	}
+    public function startJourneyForUid(int $journeyId, string $uid) : OperationResult
+    {
+        $params['uid'] = $uid;
+        return $this->_put($journeyId. '/start/uid', $params);
+    }
 }

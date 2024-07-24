@@ -4,7 +4,6 @@ namespace Maropost\Api;
 
 use Maropost\Api\Abstractions\OperationResult;
 use Maropost\Api\Abstractions\Api;
-use Maropost\Api\ResultTypes\GetResult;
 
 /**
  * Class Contacts
@@ -267,7 +266,7 @@ class Contacts
                 return $this->_put($contactId, [], $object);
             }
         }
-        return $this->_post("", [], $object);
+        return $this->_post('', [], $object);
     }
 
     /**
@@ -321,9 +320,9 @@ class Contacts
         $contact = $this->_discardNullAndEmptyValues($contact);
 
         $options = [
-            'subscribe_list_ids' => implode(",", $subscribeListIds),
-            'unsubscribe_list_ids' => implode(",", $unsubscribeListIds),
-            'unsubscribe_workflow_ids'  => implode(",", $unsubscribeWorkflowIds),
+            'subscribe_list_ids' => implode(',', $subscribeListIds),
+            'unsubscribe_list_ids' => implode(',', $unsubscribeListIds),
+            'unsubscribe_workflow_ids'  => implode(',', $unsubscribeWorkflowIds),
             'unsubscribe_campaign'  => $unsubscribeCampaign
         ];
         $options = $this->_discardNullAndEmptyValues($options);

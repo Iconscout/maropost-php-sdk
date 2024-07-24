@@ -3,13 +3,14 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use \Maropost\Api\Abstractions\OperationResult;
-use \Maropost\Api\Campaigns;
+use Maropost\Api\Abstractions\OperationResult;
+use Maropost\Api\Campaigns;
 
 final class CampaignsTests extends TestCase
 {
-    const ACCOUNT_ID = 1000;
-    const AUTH_TOKEN = "";
+    public const ACCOUNT_ID = 1000;
+
+    public const AUTH_TOKEN = '';
 
     public function testGet()
     {
@@ -22,7 +23,7 @@ final class CampaignsTests extends TestCase
         $data = $results->getData();
         $this->assertTrue(is_array($data));
         $this->assertNotEmpty($data);
-        $this->assertObjectHasAttribute("id", $data[0]);
+        $this->assertObjectHasAttribute('id', $data[0]);
         $id = $data[0]->id;
 
         // also test that 2nd page returns different data.
@@ -34,10 +35,10 @@ final class CampaignsTests extends TestCase
         $data = $results->getData();
         $this->assertTrue(is_array($data));
         $this->assertNotEmpty($data);
-        $this->assertObjectHasAttribute("id", $data[0]);
+        $this->assertObjectHasAttribute('id', $data[0]);
         $id2 = $data[0]->id;
 
-        $this->assertNotEquals($id2, $id, "potential bug re: pagination in underlying REST API");
+        $this->assertNotEquals($id2, $id, 'potential bug re: pagination in underlying REST API');
     }
 
     public function testGetDeliveredReports()

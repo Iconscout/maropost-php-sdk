@@ -72,7 +72,7 @@ class RelationalTableColumn
         if(!is_int($this->field_length)) {
             return new GetResult(null, "Value of column 'field_length' must be an int.");
         }
-        $result = new GetResult(null, "");
+        $result = new GetResult(null, '');
         $result->isSuccess = true;
         return $result;
     }
