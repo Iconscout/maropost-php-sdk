@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use \Maropost\Api\Abstractions\OperationResult;
-use \Maropost\Api\Reports;
+use Maropost\Api\Abstractions\OperationResult;
+use Maropost\Api\Reports;
 
 final class ReportsTests extends TestCase
 {
-    const ACCOUNT_ID = 1000;
-    const AUTH_TOKEN = "";
+    public const ACCOUNT_ID = 1000;
+    public const AUTH_TOKEN = '';
 
     private function makeBasicAssertions($results)
     {
@@ -29,7 +29,7 @@ final class ReportsTests extends TestCase
         $this->makeBasicAssertions($results);
         $data = $results->getData();
 
-        $this->assertObjectHasAttribute("created_at", $data[0]);
+        $this->assertObjectHasAttribute('created_at', $data[0]);
         $createdAt = $data[0]->created_at;
 
         // also test that 2nd page returns different data.
@@ -37,10 +37,10 @@ final class ReportsTests extends TestCase
         $this->makeBasicAssertions($results);
         $data = $results->getData();
 
-        $this->assertObjectHasAttribute("created_at", $data[0]);
+        $this->assertObjectHasAttribute('created_at', $data[0]);
         $createdAt2 = $data[0]->created_at;
 
-        $this->assertNotEquals($createdAt2, $createdAt, "potential bug re: pagination in underlying REST API");
+        $this->assertNotEquals($createdAt2, $createdAt, 'potential bug re: pagination in underlying REST API');
     }
 
     public function testGetReport()
@@ -58,7 +58,7 @@ final class ReportsTests extends TestCase
         $this->makeBasicAssertions($results);
         $data = $results->getData();
 
-        $this->assertObjectHasAttribute("recorded_at", $data[0]);
+        $this->assertObjectHasAttribute('recorded_at', $data[0]);
         $recordedAt = $data[0]->recorded_at;
 
         // test for page 2
@@ -67,7 +67,7 @@ final class ReportsTests extends TestCase
         $this->makeBasicAssertions($results);
         $data = $results->getData();
 
-        $this->assertObjectHasAttribute("recorded_at", $data[0]);
+        $this->assertObjectHasAttribute('recorded_at', $data[0]);
         $recordedAt2 = $data[0]->recorded_at;
 
         $this->assertNotEquals($recordedAt, $recordedAt2, 'Page 1 and Page 2 recorded_at is same');
@@ -82,7 +82,7 @@ final class ReportsTests extends TestCase
         $this->makeBasicAssertions($results);
         $data = $results->getData();
 
-        $this->assertObjectHasAttribute("recorded_at", $data[0]);
+        $this->assertObjectHasAttribute('recorded_at', $data[0]);
         $recordedAt = $data[0]->recorded_at;
         $firstContact = $data[0]->contact;
 

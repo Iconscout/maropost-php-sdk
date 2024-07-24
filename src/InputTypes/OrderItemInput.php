@@ -2,9 +2,6 @@
 
 namespace Maropost\Api\InputTypes;
 
-use Maropost\Api\Abstractions\OperationResult;
-use Maropost\Api\ResultTypes\GetResult;
-
 class OrderItemInput
 {
     /**

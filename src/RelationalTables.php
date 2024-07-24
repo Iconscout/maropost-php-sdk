@@ -20,14 +20,14 @@ class RelationalTables
      * @param string $authToken
      * @param string $tableName name of the table to act against for
      */
-	public function __construct(int $accountId, string $authToken, string $tableName)
-	{
-		$this->auth_token = $authToken;
-		$this->accountId = $accountId;
+    public function __construct(int $accountId, string $authToken, string $tableName)
+    {
+        $this->auth_token = $authToken;
+        $this->accountId = $accountId;
         $this->resource = $tableName;
-	}
+    }
 
-	public static function init(int $accountId, string $authToken, string $tableName) : self
+    public static function init(int $accountId, string $authToken, string $tableName) : self
     {
         return new RelationalTables($accountId, $authToken, $tableName);
     }
@@ -36,10 +36,10 @@ class RelationalTables
      * Gets the records of the Relational Table
      * @return GetResult
      */
-	public function get() : OperationResult
-	{
-        return $this->_get("", []);
-	}
+    public function get() : OperationResult
+    {
+        return $this->_get('', []);
+    }
 
     /**
      * Gets the specified record from the Relational Table
@@ -50,8 +50,8 @@ class RelationalTables
      */
     public function show(string $idFieldName, $idFieldValue) : OperationResult
     {
-        $object = (object)array("record" => (object)array($idFieldName => $idFieldValue));
-        return $this->_post("show", [], $object);
+        $object = (object)['record' => (object)[$idFieldName => $idFieldValue]];
+        return $this->_post('show', [], $object);
     }
 
     /**
@@ -60,26 +60,7 @@ class RelationalTables
      * @param KeyValue ...$keyValues a list of field name/values for the record to be updated.
      * @return OperationResult
      */
-	public function create(KeyValue... $keyValues) : OperationResult
-	{
-	    $object = new \stdClass();
-        $array = [];
-	    foreach ($keyValues as $keyValue)
-	    {
-	        $array[$keyValue->key] = $keyValue->value;
-        }
-	    $object->record = (object)$array;
-	    return $this->_post("create", [], $object);
-	}
-
-    /**
-     * Updates a record in the Relational Table.
-     *
-     * @param KeyValue ...$keyValues a list of field name/values for the record to be updated. NOTE: Any DateTime strings
-     * must be in one of three formats: "MM/DD/YYYY", "YYYY-MM-DD", or "YYYY-MM-DDThh:mm:ssTZD".
-     * @return OperationResult
-     */
-	public function update(KeyValue... $keyValues) : OperationResult
+    public function create(KeyValue... $keyValues) : OperationResult
     {
         $object = new \stdClass();
         $array = [];
@@ -88,7 +69,26 @@ class RelationalTables
             $array[$keyValue->key] = $keyValue->value;
         }
         $object->record = (object)$array;
-        return $this->_put("update", [], (object)$keyValues);
+        return $this->_post('create', [], $object);
+    }
+
+    /**
+     * Updates a record in the Relational Table.
+     *
+     * @param KeyValue ...$keyValues a list of field name/values for the record to be updated. NOTE: Any DateTime strings
+     * must be in one of three formats: "MM/DD/YYYY", "YYYY-MM-DD", or "YYYY-MM-DDThh:mm:ssTZD".
+     * @return OperationResult
+     */
+    public function update(KeyValue... $keyValues) : OperationResult
+    {
+        $object = new \stdClass();
+        $array = [];
+        foreach ($keyValues as $keyValue)
+        {
+            $array[$keyValue->key] = $keyValue->value;
+        }
+        $object->record = (object)$array;
+        return $this->_put('update', [], (object)$keyValues);
     }
 
     /**
@@ -107,7 +107,7 @@ class RelationalTables
             $array[$keyValue->key] = $keyValue->value;
         }
         $object->record = (object)$array;
-        return $this->_put("upsert", [], $object);
+        return $this->_put('upsert', [], $object);
     }
 
     /**
@@ -117,14 +117,14 @@ class RelationalTables
      * @param mixed $idFieldValue value of the identifier field, for the record to delete.
      * @return OperationResult
      */
-	public function delete(string $idFieldName, $idFieldValue) : OperationResult
+    public function delete(string $idFieldName, $idFieldValue) : OperationResult
     {
-        $object = (object)array("record" => (object)array($idFieldName => $idFieldValue));
-        $result = $this->_delete("delete", [], null, $object);
+        $object = (object)['record' => (object)[$idFieldName => $idFieldValue]];
+        $result = $this->_delete('delete', [], null, $object);
         if (!$result->isSuccess) {
             // first check and ensure the record exists before attempting.
             $showResult = $this->show($idFieldName, $idFieldValue);
-            if($showResult->isSuccess && property_exists($showResult->getData()->result, "error")) {
+            if($showResult->isSuccess && property_exists($showResult->getData()->result, 'error')) {
                 // it's not *really* an error, the field just doesn't exist.
                 $result = $showResult;
                 $result->errorMessage = $showResult->getData()->result->error;

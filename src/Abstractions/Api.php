@@ -33,10 +33,10 @@ trait Api {
      * @return array
      */
     private function getHttpHeaders() : array {
-        return array(
-            "Content-type"=>"application/json",
-            "Accept"=>"application/json"
-        );
+        return [
+            'Content-type' => 'application/json',
+            'Accept' => 'application/json'
+        ];
     }
 
     /**
@@ -51,9 +51,7 @@ trait Api {
             $queryStr .= $key . '=' . $value;
         }
         // replace spaces with + to have correct url format
-        $queryStr = str_replace(' ', '+', $queryStr);
-
-        return $queryStr;
+        return str_replace(' ', '+', $queryStr);
     }
 
     /**
