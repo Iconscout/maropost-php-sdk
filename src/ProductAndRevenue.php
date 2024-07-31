@@ -239,7 +239,7 @@ class ProductAndRevenue
         }
         foreach ($productIds as $productId) {
             if (!is_int($productId)) {
-                if (!is_string($productId) || strpos($productId, ',') !== false) {
+                if (!is_string($productId) || str_contains($productId, ',')) {
                     return new GetResult(null, 'At least one productId is invalid');
                 }
             }
@@ -263,7 +263,7 @@ class ProductAndRevenue
         }
         foreach ($productIds as $productId) {
             if (!is_int($productId)) {
-                if (!is_string($productId) || strpos($productId, ',') !== false) {
+                if (!is_string($productId) || str_contains($productId, ',')) {
                     return new GetResult(null, 'At least one productId is invalid');
                 }
             }
