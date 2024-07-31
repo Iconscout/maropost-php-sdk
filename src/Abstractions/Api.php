@@ -63,7 +63,7 @@ trait Api {
         $url = 'https://api.maropost.com/accounts/';
         $resource = $this->resource;
         // overrides original resource if specified
-        $resource = $overrideResource === null ? $resource : $overrideResource;
+        $resource = $overrideResource ?? $resource;
         $url .= empty($resource) ? $this->accountId : $this->accountId . '/' . $resource;
 
         return $url;

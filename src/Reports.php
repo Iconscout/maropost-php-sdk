@@ -72,8 +72,8 @@ class Reports
     {
         $params = [
             'fields' => implode(',', $fields),
-            'from' => $from === null ? null : $from->format('Y-m-d'),
-            'to' => $to === null ? null : $to->format('Y-m-d'),
+            'from' => $from?->format('Y-m-d'),
+            'to' => $to?->format('Y-m-d'),
             'unique' => $unique,
             'email' => $email,
             'uid' => $uid,
@@ -112,8 +112,8 @@ class Reports
     {
         $params = [
             'fields' => implode(',', $fields),
-            'from' => $from === null ? null : $from->format('Y-m-d'),
-            'to' => $to === null ? null : $to->format('Y-m-d'),
+            'from' => $from?->format('Y-m-d'),
+            'to' => $to?->format('Y-m-d'),
             'unique' => $unique,
             'email' => $email,
             'uid' => $uid,
@@ -153,8 +153,8 @@ class Reports
     {
         $params = [
             'fields' => implode(',', $fields),
-            'from' => $from === null ? null : $from->format('Y-m-d'),
-            'to' => $to === null ? null : $to->format('Y-m-d'),
+            'from' => $from?->format('Y-m-d'),
+            'to' => $to?->format('Y-m-d'),
             'unique' => $unique,
             'email' => $email,
             'uid' => $uid,
@@ -194,8 +194,8 @@ class Reports
     {
         $params = [
             'fields' => implode(',', $fields),
-            'from' => $from === null ? null : $from->format('Y-m-d'),
-            'to' => $to === null ? null : $to->format('Y-m-d'),
+            'from' => $from?->format('Y-m-d'),
+            'to' => $to?->format('Y-m-d'),
             'unique' => $unique,
             'email' => $email,
             'uid' => $uid,
@@ -234,8 +234,8 @@ class Reports
     {
         $params = [
             'fields' => implode(',', $fields),
-            'from' => $from === null ? null : $from->format('Y-m-d'),
-            'to' => $to === null ? null : $to->format('Y-m-d'),
+            'from' => $from?->format('Y-m-d'),
+            'to' => $to?->format('Y-m-d'),
             'unique' => $unique,
             'email' => $email,
             'uid' => $uid,
@@ -270,8 +270,8 @@ class Reports
         $this->resource = '';
         $params = [
             'name' => $name,
-            'from' => $from === null ? null : $from->format('Y-m-d'),
-            'to' => $to === null ? null : $to->format('Y-m-d'),
+            'from' => $from?->format('Y-m-d'),
+            'to' => $to?->format('Y-m-d'),
             'per' => $per,
             'page' => $page
         ];
