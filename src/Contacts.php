@@ -415,4 +415,30 @@ class Contacts
         return $this->_put('unsubscribe_all', $params);
     }
 
+    /**
+     * Add/remove Tags by Email
+     *
+     * @param string $email Email address for the contact to be updated
+     * @param array $addTags Tags to add to the contact. Simple array of tag names
+     * @param array $removeTags tags to remove from the contact. Simple array of tag names
+     * @return OperationResult
+     */
+    public function addRemoveTags(
+        string $email,
+        array $addTags = [],
+        array $removeTags = []
+    ): OperationResult
+    {
+        $contact = [
+            'email' => $email,
+            'add_tags' => $addTags,
+            'remove_tags' => $removeTags,
+        ];
+        $contact = $this->_discardNullAndEmptyValues($contact);
+
+        $object = new \stdClass();
+        $object->tags = (object)$contact;
+        return $this->_put('add_remove_tags', [], $object, '');
+    }
+
 }
