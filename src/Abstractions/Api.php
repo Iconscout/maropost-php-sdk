@@ -73,7 +73,9 @@ trait Api {
     {
         $transformedArray = [];
         foreach ($params as $key => $value) {
-            if (!empty($value)) {
+            if (is_bool($value)) {
+                $transformedArray[$key] = $value;
+            } elseif (!empty($value)) {
                 $transformedArray[$key] = $value;
             }
         }
